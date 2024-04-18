@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -37,6 +39,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MyRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Text(text = "J. Robert Oppenheimer", modifier = Modifier.weight(1f))
+        Text(text = "Enrico Fermi", modifier = Modifier.weight(1f))
+        Text(text = "Niels Bohr", modifier = Modifier.weight(1f))
     }
 }
 
@@ -82,6 +98,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     Compose_catalogTheme {
-        MyColumn()
+        MyRow()
     }
 }
