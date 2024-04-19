@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Exercise1()
+                    MyConstraintLayout()
                 }
             }
         }
@@ -198,6 +198,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     Compose_catalogTheme {
-        MyComplexComponent()
+        MyConstraintLayout()
     }
 }
