@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,6 +43,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun MySpacer(size: Int) {
+    Spacer(modifier = Modifier.height(size.dp))
 }
 
 @Composable
@@ -97,9 +103,8 @@ fun MyComplexComponent() {
                 .fillMaxSize()
                 .weight(1f)
                 .background(Color.Yellow)
-        ) {
-
-        }
+        )
+        MySpacer(30)
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -193,6 +198,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     Compose_catalogTheme {
-        Exercise1()
+        MyComplexComponent()
     }
 }
