@@ -8,8 +8,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -104,7 +102,7 @@ fun MyText() {
 
 @Preview(showBackground = true)
 @Composable
-fun ConstrainExamplePreview() {
+fun TextDefaultPreview() {
     Compose_catalogTheme {
         MyStateHosting()
     }

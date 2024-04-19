@@ -175,7 +175,7 @@ fun MyConstraintLayout() {
 
 @Preview(showBackground = true)
 @Composable
-fun ConstrainExamplePreview() {
+fun ConstrainDefaultPreview() {
     Compose_catalogTheme {
         MyConstraintChain()
     }
