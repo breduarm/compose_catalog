@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -36,9 +37,54 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyComplexComponent()
+                    Exercise1()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Exercise1() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Cyan), contentAlignment = Alignment.Center
+        ) {
+            Text(text = "Header", color = Color.Black)
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.White)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .background(Color.Red), contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Left side", color = Color.White)
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .background(Color.Green), contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Right side", color = Color.White)
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(Color.Magenta), contentAlignment = Alignment.BottomCenter
+        ) {
+            Text(text = "Footer")
         }
     }
 }
@@ -147,6 +193,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     Compose_catalogTheme {
-        MyComplexComponent()
+        Exercise1()
     }
 }
