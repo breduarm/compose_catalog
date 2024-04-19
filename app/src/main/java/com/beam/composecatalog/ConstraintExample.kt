@@ -13,6 +13,23 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 @Composable
+fun MyConstraintWithGuidelines() {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val boxRed = createRef()
+        val topGuide = createGuidelineFromTop(0.1f)
+        val startGuide = createGuidelineFromStart(0.25f)
+
+        Box(modifier = Modifier
+            .size(100.dp)
+            .background(Color.Red)
+            .constrainAs(boxRed) {
+                top.linkTo(topGuide)
+                start.linkTo(startGuide)
+            })
+    }
+}
+
+@Composable
 fun Exercise2() {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (boxRed, boxGreen, boxBlue, boxYellow, boxCyan) = createRefs()
@@ -100,6 +117,6 @@ fun MyConstraintLayout() {
 @Composable
 fun ConstrainExamplePreview() {
     Compose_catalogTheme {
-        Exercise2()
+        MyConstraintWithGuidelines()
     }
 }
