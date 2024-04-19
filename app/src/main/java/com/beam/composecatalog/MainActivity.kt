@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -35,9 +36,57 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyColumn()
+                    MyComplexComponent()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun MyComplexComponent() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .background(Color.Yellow)
+        ) {
+
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .background(Color.LightGray)
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .background(Color.Gray), contentAlignment = Alignment.Center
+            ) {
+                Text(text = "This a text", color = Color.White)
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .background(Color.DarkGray)
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .background(Color.Cyan)
+        ) {
+
         }
     }
 }
@@ -98,6 +147,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     Compose_catalogTheme {
-        MyRow()
+        MyComplexComponent()
     }
 }
