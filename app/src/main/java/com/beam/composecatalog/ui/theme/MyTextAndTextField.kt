@@ -26,6 +26,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
+fun MyStateHosting() {
+    var entryText by remember { mutableStateOf("Default text") }
+    MyTextFieldStateHosting(entryText = entryText) {
+        entryText = it
+    }
+}
+
+@Composable
+fun MyTextFieldStateHosting(entryText: String, onValueChange: (String) -> Unit) {
+    TextField(value = entryText, onValueChange = onValueChange)
+}
+
+@Composable
 fun MyTextFieldOutlined() {
     var entryText by remember { mutableStateOf("") }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -93,6 +106,6 @@ fun MyText() {
 @Composable
 fun ConstrainExamplePreview() {
     Compose_catalogTheme {
-        MyTextFieldOutlined()
+        MyStateHosting()
     }
 }
