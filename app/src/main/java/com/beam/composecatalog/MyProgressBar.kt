@@ -42,10 +42,22 @@ fun MyProgressBarAdvance() {
         )
         MySpacer(size = 16)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(onClick = { progress -= 0.1f }) {
+            Button(onClick = {
+                if (progress <= 0.0f) {
+                    progress = 0.9f
+                } else {
+                    progress -= 0.1f
+                }
+            }) {
                 Text(text = "Decrement")
             }
-            Button(onClick = { progress += 0.1f }) {
+            Button(onClick = {
+                if (progress >= 1f) {
+                    progress = 0.1f
+                } else {
+                    progress += 0.1f
+                }
+            }) {
                 Text(text = "Increase")
             }
         }
