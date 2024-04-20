@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TriStateCheckbox
@@ -22,6 +24,28 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.beam.composecatalog.domain.CheckInfo
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
+
+@Composable
+fun MyRadioButton() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = true,
+            enabled = false,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Green,
+                unselectedColor = Color.Blue,
+                disabledSelectedColor = Color.LightGray,
+                disabledUnselectedColor = Color.DarkGray,
+            ),
+            onClick = { }
+        )
+        Text(text = "This is a radio button example")
+    }
+}
 
 @Composable
 fun MyTriStateCheckbox() {
@@ -123,6 +147,6 @@ fun MySwitch() {
 @Composable
 fun SelectComponentDefaultPreview() {
     Compose_catalogTheme {
-        MyTriStateCheckbox()
+        MyRadioButton()
     }
 }
