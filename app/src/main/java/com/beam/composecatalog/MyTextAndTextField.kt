@@ -1,4 +1,4 @@
-package com.beam.composecatalog.ui.theme
+package com.beam.composecatalog
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 @Composable
 fun MyStateHosting() {
