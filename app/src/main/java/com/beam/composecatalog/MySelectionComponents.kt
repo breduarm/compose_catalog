@@ -26,6 +26,42 @@ import com.beam.composecatalog.domain.CheckInfo
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 @Composable
+fun MyRadioButtonWithStateHosting() {
+    var selected by rememberSaveable { mutableStateOf("ChatGpt") }
+
+    MyRadioButtonList(selected) { newSelection ->
+        selected = newSelection
+    }
+}
+
+@Composable
+fun MyRadioButtonList(optionSelected: String, onOptionSelected: (String) -> Unit) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = optionSelected == "ChatGpt",
+                onClick = { onOptionSelected("ChatGpt") }
+            )
+            Text(text = "ChatGpt")
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = optionSelected == "Gemini",
+                onClick = { onOptionSelected("Gemini") }
+            )
+            Text(text = "Gemini")
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = optionSelected == "Bart",
+                onClick = { onOptionSelected("Bart") }
+            )
+            Text(text = "Bart")
+        }
+    }
+}
+
+@Composable
 fun MyRadioButton() {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -147,6 +183,6 @@ fun MySwitch() {
 @Composable
 fun SelectComponentDefaultPreview() {
     Compose_catalogTheme {
-        MyRadioButton()
+        MyRadioButtonWithStateHosting()
     }
 }
