@@ -1,7 +1,6 @@
 package com.beam.composecatalog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -46,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
-                        MyDropdownMenu()
+                        MyRangeSlider()
                     }
                 }
             }
