@@ -26,7 +26,7 @@ fun MyTestDialog() {
         Button(onClick = { show = !show }) {
             Text(text = "Display AlertDialog")
         }
-        MyDialog(
+        MyAlertDialog(
             show = show,
             onConfirm = { Log.i("beam", "Alert dialog confirmed") },
             onDismiss = { show = false }
@@ -35,7 +35,7 @@ fun MyTestDialog() {
 }
 
 @Composable
-fun MyDialog(show: Boolean, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+fun MyAlertDialog(show: Boolean, onConfirm: () -> Unit, onDismiss: () -> Unit) {
     if (show) {
         AlertDialog(
             title = { Text(text = "Title") },
