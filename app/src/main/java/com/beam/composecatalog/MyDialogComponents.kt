@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,38 @@ import androidx.compose.ui.window.DialogProperties
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 @Composable
+fun MyMultiOptionConfirmationDialog(show: Boolean, onDismiss: () -> Unit) {
+    var optionSelected by rememberSaveable { mutableStateOf("ChatGpt") }
+
+    if (show) {
+        Dialog(
+            onDismissRequest = onDismiss
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+            ) {
+                MyTitleDialog("Phone ringtone", modifier = Modifier.padding(24.dp))
+                MyDivider()
+                MyRadioButtonList(optionSelected = optionSelected) {
+                    optionSelected = it
+                }
+                MyDivider()
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    TextButton(onClick = { /*TODO*/ }) {
+                        Text(text = "Cancel")
+                    }
+                    TextButton(onClick = { /*TODO*/ }) {
+                        Text(text = "Ok")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun MyCustomDialogGmailAccountChange(show: Boolean, onDismiss: () -> Unit) {
     if (show) {
         Dialog(
@@ -47,7 +80,7 @@ fun MyCustomDialogGmailAccountChange(show: Boolean, onDismiss: () -> Unit) {
                     .background(Color.White)
                     .padding(24.dp)
             ) {
-                MyTitleDialog("Set backup account")
+                MyTitleDialog("Set backup account", Modifier.padding(bottom = 12.dp))
                 MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.avatar)
                 MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.avatar)
                 MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.add)
@@ -57,12 +90,12 @@ fun MyCustomDialogGmailAccountChange(show: Boolean, onDismiss: () -> Unit) {
 }
 
 @Composable
-fun MyTitleDialog(text: String) {
+fun MyTitleDialog(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp,
-        modifier = Modifier.padding(bottom = 12.dp)
+        modifier = modifier
     )
 }
 
@@ -110,7 +143,7 @@ fun MyCustomDialog(show: Boolean, onDismiss: () -> Unit) {
 }
 
 enum class AlertType {
-    ALERT_DIALOG, CUSTOM_DIALOG, GMAIL_ACCOUNT_CHANGE_DIALOG
+    ALERT_DIALOG, CUSTOM_DIALOG, GMAIL_ACCOUNT_CHANGE_DIALOG, MULTI_OPTION_CONFIRM_DIALOG
 }
 
 @Composable
@@ -120,7 +153,7 @@ fun MyTestDialog() {
         Button(onClick = { show = !show }) {
             Text(text = "Display AlertDialog")
         }
-        val alertType = AlertType.GMAIL_ACCOUNT_CHANGE_DIALOG
+        val alertType = AlertType.MULTI_OPTION_CONFIRM_DIALOG
         when (alertType) {
             AlertType.ALERT_DIALOG -> {
                 MyAlertDialog(
@@ -136,6 +169,10 @@ fun MyTestDialog() {
 
             AlertType.GMAIL_ACCOUNT_CHANGE_DIALOG -> {
                 MyCustomDialogGmailAccountChange(show = show, onDismiss = { show = false })
+            }
+
+            AlertType.MULTI_OPTION_CONFIRM_DIALOG -> {
+                MyMultiOptionConfirmationDialog(show = show, onDismiss = { show = false })
             }
         }
     }

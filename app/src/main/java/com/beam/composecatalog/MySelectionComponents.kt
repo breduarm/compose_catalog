@@ -36,7 +36,7 @@ fun MyRadioButtonWithStateHosting() {
 
 @Composable
 fun MyRadioButtonList(optionSelected: String, onOptionSelected: (String) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = optionSelected == "ChatGpt",

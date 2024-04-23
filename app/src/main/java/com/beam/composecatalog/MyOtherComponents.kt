@@ -70,7 +70,7 @@ fun MyDropdownMenu() {
 
 @Composable
 fun MyDivider() {
-    Divider(modifier = Modifier.fillMaxWidth(), color = Color.Red)
+    Divider(modifier = Modifier.fillMaxWidth())
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
