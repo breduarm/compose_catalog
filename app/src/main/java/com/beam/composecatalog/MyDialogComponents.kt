@@ -49,6 +49,8 @@ fun MyCustomDialogGmailAccountChange(show: Boolean, onDismiss: () -> Unit) {
             ) {
                 MyTitleDialog("Set backup account")
                 MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.avatar)
+                MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.avatar)
+                MyAccountItem(email = "example_1@gmail.com", drawableRes = R.drawable.add)
             }
         }
     }
