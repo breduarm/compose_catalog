@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
-                        MyTestDialog()
+                        MyRecyclerViewSuperHeroes()
                     }
                 }
             }
