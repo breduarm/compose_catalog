@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         MyScaffold()
                     }
                 }
