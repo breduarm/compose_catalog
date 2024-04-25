@@ -5,16 +5,26 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -25,52 +35,54 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beam.composecatalog.domain.SuperHero
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
+import kotlinx.coroutines.launch
 
-fun getSuperHeroes(): List<SuperHero> {
-    return listOf(
-        SuperHero(
-            nickname = "Spiderman",
-            name = "Petter Parker",
-            publisher = "Marvel",
-            R.drawable.spiderman,
-        ),
-        SuperHero(
-            nickname = "Wolverine",
-            name = "James Howlett",
-            publisher = "Marvel",
-            R.drawable.logan,
-        ),
-        SuperHero(
-            nickname = "Batman",
-            name = "Bruce Wayne",
-            publisher = "DC Comics",
-            R.drawable.batman,
-        ),
-        SuperHero(
-            nickname = "Thor",
-            name = "Thor Odinson",
-            publisher = "Marvel",
-            R.drawable.thor,
-        ),
-        SuperHero(
-            nickname = "Flash",
-            name = "Barry Allen",
-            publisher = "DC Comics",
-            R.drawable.flash,
-        ),
-        SuperHero(
-            nickname = "Green Lantern",
-            name = "John Stewart",
-            publisher = "DC Comics",
-            R.drawable.green_lantern
-        ),
-        SuperHero(
-            nickname = "Wonder Woman",
-            name = "Diana Prince",
-            publisher = "DC Comics",
-            R.drawable.wonder_woman
-        )
-    )
+@Composable
+fun MyRecyclerViewSuperHeroesWithControls() {
+    val context = LocalContext.current
+    val rvState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    Column {
+        LazyColumn(
+            state = rvState,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f)
+        ) {
+            items(getSuperHeroes()) { superHero ->
+                ItemHero(superHero) {
+                    Toast.makeText(context, it.nickname, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        val showButton by remember {
+            derivedStateOf {
+                rvState.firstVisibleItemIndex > 0
+            }
+        }
+
+        if (showButton) {
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                coroutineScope.launch {
+                    rvState.animateScrollToItem(0)
+                }
+            }) {
+                Text(text = "Back to top")
+            }
+        }
+    }
+}
+
+@Composable
+fun MyRecyclerViewSuperHeroesGrid() {
+    val context = LocalContext.current
+    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+        items(getSuperHeroes()) { superHero ->
+            ItemHero(superHero) {
+                Toast.makeText(context, it.nickname, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
 
 @Composable
@@ -88,7 +100,7 @@ fun MyRecyclerViewSuperHeroes() {
 @Composable
 fun ItemHero(superHero: SuperHero, onItemSelected: (SuperHero) -> Unit) {
     Card(modifier = Modifier
-        .width(200.dp)
+        .fillMaxWidth()
         .clickable {
             onItemSelected(superHero)
         }
@@ -153,7 +165,54 @@ fun RecyclerViewDefaultPreview() {
                 .fillMaxSize()
                 .padding(24.dp)
         ) {
-            MyRecyclerViewSuperHeroes()
+            MyRecyclerViewSuperHeroesWithControls()
         }
     }
+}
+
+fun getSuperHeroes(): List<SuperHero> {
+    return listOf(
+        SuperHero(
+            nickname = "Spiderman",
+            name = "Petter Parker",
+            publisher = "Marvel",
+            R.drawable.spiderman,
+        ),
+        SuperHero(
+            nickname = "Wolverine",
+            name = "James Howlett",
+            publisher = "Marvel",
+            R.drawable.logan,
+        ),
+        SuperHero(
+            nickname = "Batman",
+            name = "Bruce Wayne",
+            publisher = "DC Comics",
+            R.drawable.batman,
+        ),
+        SuperHero(
+            nickname = "Thor",
+            name = "Thor Odinson",
+            publisher = "Marvel",
+            R.drawable.thor,
+        ),
+        SuperHero(
+            nickname = "Flash",
+            name = "Barry Allen",
+            publisher = "DC Comics",
+            R.drawable.flash,
+        ),
+        SuperHero(
+            nickname = "Green Lantern",
+            name = "John Stewart",
+            publisher = "DC Comics",
+            R.drawable.green_lantern
+        ),
+        SuperHero(
+            nickname = "Wonder Woman",
+            name = "Diana Prince",
+            publisher = "DC Comics",
+            R.drawable.wonder_woman
+        )
+    )
 }
