@@ -1,7 +1,9 @@
 package com.beam.composecatalog
 
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,18 +26,47 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beam.composecatalog.domain.SuperHero
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun MyRecyclerViewWithStickyHeader() {
+    val context = LocalContext.current
+    val superHeroes = getSuperHeroes().groupBy { it.publisher }
+
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        superHeroes.forEach { (publisher, superheroList) ->
+            stickyHeader {
+                Text(
+                    text = publisher,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White),
+                    fontSize = 20.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            items(superheroList) { superHero ->
+                ItemHero(superHero) {
+                    Toast.makeText(context, it.nickname, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun MyRecyclerViewSuperHeroesWithControls() {
@@ -165,7 +196,7 @@ fun RecyclerViewDefaultPreview() {
                 .fillMaxSize()
                 .padding(24.dp)
         ) {
-            MyRecyclerViewSuperHeroesWithControls()
+            MyRecyclerViewWithStickyHeader()
         }
     }
 }
