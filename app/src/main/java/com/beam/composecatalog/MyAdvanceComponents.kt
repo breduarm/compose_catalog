@@ -1,0 +1,36 @@
+package com.beam.composecatalog
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.beam.composecatalog.ui.theme.Compose_catalogTheme
+
+@Composable
+fun MyScaffold() {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(50.dp)
+        .background(Color.Red))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AdvanceComponentsDefaultPreview() {
+    Compose_catalogTheme {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+        ) {
+            MyScaffold()
+        }
+    }
+}
