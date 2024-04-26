@@ -1,26 +1,34 @@
 package com.beam.composecatalog
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Dangerous
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -31,7 +39,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MyScaffold() {
-
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     Scaffold(
@@ -44,9 +51,65 @@ fun MyScaffold() {
                     }
                 }
             )
+        },
+        bottomBar = {
+            MyNavigationBar()
         }
     ) {
         it.calculateTopPadding()
+    }
+}
+
+@Composable
+fun MyNavigationBar() {
+    var index by remember { mutableIntStateOf(0) }
+    NavigationBar(containerColor = Color.Red, contentColor = Color.Blue) {
+        NavigationBarItem(
+            selected = index == 0,
+            onClick = { index = 0 },
+            icon = { Icon(imageVector = Icons.Default.Home, contentDescription = "Home") },
+            label = { Text(text = "Home") },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                indicatorColor = Color.Blue,
+                unselectedIconColor = Color.Yellow,
+                unselectedTextColor = Color.Yellow,
+                disabledIconColor = Color.Gray,
+                disabledTextColor = Color.Gray,
+            )
+        )
+        NavigationBarItem(
+            selected = index == 1,
+            onClick = { index = 1 },
+            icon = { Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorites") },
+            label = { Text(text = "Favorites") },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                indicatorColor = Color.Blue,
+                unselectedIconColor = Color.Yellow,
+                unselectedTextColor = Color.Yellow,
+                disabledIconColor = Color.Gray,
+                disabledTextColor = Color.Gray,
+            )
+        )
+        NavigationBarItem(
+            enabled = false,
+            selected = index == 2,
+            onClick = { index = 2 },
+            icon = { Icon(imageVector = Icons.Default.Person, contentDescription = "Account") },
+            label = { Text(text = "Person") },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.White,
+                selectedTextColor = Color.White,
+                indicatorColor = Color.Blue,
+                unselectedIconColor = Color.Yellow,
+                unselectedTextColor = Color.Yellow,
+                disabledIconColor = Color.Gray,
+                disabledTextColor = Color.Gray,
+            )
+        )
     }
 }
 
