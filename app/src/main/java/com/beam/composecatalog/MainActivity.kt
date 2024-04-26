@@ -9,10 +9,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavArgument
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.beam.composecatalog.domain.model.Routes
+import com.beam.composecatalog.domain.model.Routes.Screen1
+import com.beam.composecatalog.domain.model.Routes.Screen2
+import com.beam.composecatalog.domain.model.Routes.Screen3
+import com.beam.composecatalog.domain.model.Routes.Screen4
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,10 +34,23 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "screen2") {
-                        composable(route = Routes.Screen1.route) { ScreenOne(navController) }
-                        composable(route = Routes.Screen2.route) { ScreenTwo(navController) }
-                        composable(route = Routes.Screen3.route) { ScreenThree(navController) }
+                    NavHost(navController = navController, startDestination = Screen1.route) {
+                        composable(route = Screen1.route) { ScreenOne(navController) }
+                        composable(route = Screen2.route) { ScreenTwo(navController) }
+                        composable(route = Screen3.route) { ScreenThree(navController) }
+                        composable(
+                            route = Screen4("name").route,
+                            arguments = listOf(
+                                navArgument("name") {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) { backStackEntry ->
+                            ScreenFour(
+                                navController,
+                                backStackEntry.arguments?.getString("name")!!
+                            )
+                        }
                     }
                 }
             }
