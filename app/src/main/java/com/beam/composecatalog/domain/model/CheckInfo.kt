@@ -1,4 +1,4 @@
-package com.beam.composecatalog.domain
+package com.beam.composecatalog.domain.model
 
 data class CheckInfo(
     val title: String,

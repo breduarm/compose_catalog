@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import com.beam.composecatalog.domain.CheckInfo
+import com.beam.composecatalog.domain.model.CheckInfo
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package com.beam.composecatalog.domain
+package com.beam.composecatalog.domain.model
 
 import androidx.annotation.DrawableRes
 
