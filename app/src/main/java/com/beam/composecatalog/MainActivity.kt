@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen2.route) { ScreenTwo(navController) }
                         composable(route = Screen3.route) { ScreenThree(navController) }
                         composable(
-                            route = Screen4("name").route,
+                            route = Screen4("{name}").route,
                             arguments = listOf(
                                 navArgument("name") {
                                     type = NavType.StringType
