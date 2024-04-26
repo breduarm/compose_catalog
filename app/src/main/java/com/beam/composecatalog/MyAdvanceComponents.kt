@@ -1,21 +1,26 @@
 package com.beam.composecatalog
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Dangerous
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -23,8 +28,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -43,26 +50,76 @@ import kotlinx.coroutines.launch
 fun MyScaffold() {
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackBarHostState) },
-        topBar = {
-            MyTopAppBar(
-                onClickIcon = { actionType ->
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+
+    ModalNavigationDrawer(
+        drawerContent = {
+            ModalDrawerSheet {
+                MyModalDrawer {
                     coroutineScope.launch {
-                        snackBarHostState.showSnackbar("Action = $actionType")
+                        drawerState.close()
                     }
                 }
-            )
+            }
         },
-        bottomBar = {
-            MyNavigationBar()
-        },
-        floatingActionButton = {
-            MyFloatingActionButton()
-        },
-        floatingActionButtonPosition = FabPosition.Center,
+        drawerState = drawerState
     ) {
-        it.calculateTopPadding()
+        Scaffold(
+            snackbarHost = { SnackbarHost(snackBarHostState) },
+            topBar = {
+                MyTopAppBar(
+                    onClickIcon = { actionType ->
+                        coroutineScope.launch {
+                            snackBarHostState.showSnackbar("Action = $actionType")
+                        }
+                    },
+                    onClickDrawer = {
+                        coroutineScope.launch {
+                            drawerState.open()
+                        }
+                    }
+                )
+            },
+            bottomBar = {
+                MyNavigationBar()
+            },
+            floatingActionButton = {
+                MyFloatingActionButton()
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+        ) {
+            it.calculateTopPadding()
+        }
+    }
+}
+
+@Composable
+fun MyModalDrawer(onClickDrawer: () -> Unit) {
+    Column(modifier = Modifier.padding(8.dp)) {
+        TextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            onClick = onClickDrawer
+        ) {
+            Text(text = "Option 1")
+        }
+        TextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            onClick = onClickDrawer
+        ) {
+            Text(text = "Option 2")
+        }
+        TextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            onClick = onClickDrawer
+        ) {
+            Text(text = "Option 3")
+        }
     }
 }
 
@@ -132,7 +189,7 @@ fun MyNavigationBar() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTopAppBar(onClickIcon: (String) -> Unit) {
+fun MyTopAppBar(onClickIcon: (String) -> Unit, onClickDrawer: () -> Unit) {
     TopAppBar(
         title = {
             Text(text = "This is a top app bar")
@@ -146,9 +203,9 @@ fun MyTopAppBar(onClickIcon: (String) -> Unit) {
             spotColor = Color.Red
         ),
         navigationIcon = {
-            IconButton(onClick = { onClickIcon("BACK") }) {
+            IconButton(onClick = onClickDrawer) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.Filled.Menu,
                     contentDescription = "Back navigation",
                     tint = Color.Yellow
                 )
