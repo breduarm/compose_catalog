@@ -47,8 +47,19 @@ class MainActivity : ComponentActivity() {
                             )
                         ) { backStackEntry ->
                             ScreenFour(
-                                navController,
-                                backStackEntry.arguments?.getString("name")!!
+                                navController = navController,
+                                name = backStackEntry.arguments?.getString("name")!!
+                            )
+                        }
+                        composable(
+                            route = Routes.Screen5.route,
+                            arguments = listOf(
+                                navArgument("name") { defaultValue = "Default value" }
+                            )
+                        ) { backStackEntry ->
+                            ScreenFive(
+                                navController = navController,
+                                name = backStackEntry.arguments?.getString("name")
                             )
                         }
                     }

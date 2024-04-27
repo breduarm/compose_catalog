@@ -71,6 +71,22 @@ fun ScreenFour(navController: NavHostController, name: String) {
             text = "Screen 4 with argument = $name",
             modifier = Modifier
                 .align(Alignment.Center)
+                .clickable { navController.navigate(Routes.Screen5.createRoute()) }
+        )
+    }
+}
+
+@Composable
+fun ScreenFive(navController: NavHostController, name: String?) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Magenta)
+    ) {
+        Text(
+            text = "Screen 5 with argument = $name",
+            modifier = Modifier
+                .align(Alignment.Center)
                 .clickable { navController.navigate(Routes.Screen1.route) }
         )
     }
