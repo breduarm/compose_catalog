@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -63,6 +65,18 @@ fun MyButton(isEnable: Boolean) {
             Log.i("MyTextButton", "This is an example")
         }) {
             Text(text = "Don't press this text button")
+        }
+
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "Classic Button")
+        }
+
+        FilledTonalButton(onClick = { /*TODO*/ }) {
+            Text(text = "Filled tonal Button")
+        }
+
+        ElevatedButton(onClick = { /*TODO*/ }) {
+            Text(text = "Elevated Button")
         }
     }
 }
