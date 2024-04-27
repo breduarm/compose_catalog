@@ -25,6 +25,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -126,6 +127,17 @@ fun MyModalDrawer(onClickDrawer: () -> Unit) {
 @Composable
 fun MyFloatingActionButton() {
     FloatingActionButton(
+        onClick = { /*TODO*/ },
+        containerColor = Color.Blue,
+        contentColor = Color.White
+    ) {
+        Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
+    }
+}
+
+@Composable
+fun MySmallFloatingActionButton() {
+    SmallFloatingActionButton(
         onClick = { /*TODO*/ },
         containerColor = Color.Blue,
         contentColor = Color.White
