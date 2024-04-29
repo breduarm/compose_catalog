@@ -3,6 +3,7 @@ package com.beam.composecatalog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -32,36 +33,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-
-                    NavHost(navController = navController, startDestination = Screen1.route) {
-                        composable(route = Screen1.route) { ScreenOne(navController) }
-                        composable(route = Screen2.route) { ScreenTwo(navController) }
-                        composable(route = Screen3.route) { ScreenThree(navController) }
-                        composable(
-                            route = Screen4("{name}").route,
-                            arguments = listOf(
-                                navArgument("name") {
-                                    type = NavType.StringType
-                                }
-                            )
-                        ) { backStackEntry ->
-                            ScreenFour(
-                                navController = navController,
-                                name = backStackEntry.arguments?.getString("name")!!
-                            )
-                        }
-                        composable(
-                            route = Routes.Screen5.route,
-                            arguments = listOf(
-                                navArgument("name") { defaultValue = "Default value" }
-                            )
-                        ) { backStackEntry ->
-                            ScreenFive(
-                                navController = navController,
-                                name = backStackEntry.arguments?.getString("name")
-                            )
-                        }
+//                    val navController = rememberNavController()
+//
+//                    NavHost(navController = navController, startDestination = Screen1.route) {
+//                        composable(route = Screen1.route) { ScreenOne(navController) }
+//                        composable(route = Screen2.route) { ScreenTwo(navController) }
+//                        composable(route = Screen3.route) { ScreenThree(navController) }
+//                        composable(
+//                            route = Screen4("{name}").route,
+//                            arguments = listOf(
+//                                navArgument("name") {
+//                                    type = NavType.StringType
+//                                }
+//                            )
+//                        ) { backStackEntry ->
+//                            ScreenFour(
+//                                navController = navController,
+//                                name = backStackEntry.arguments?.getString("name")!!
+//                            )
+//                        }
+//                        composable(
+//                            route = Routes.Screen5.route,
+//                            arguments = listOf(
+//                                navArgument("name") { defaultValue = "Default value" }
+//                            )
+//                        ) { backStackEntry ->
+//                            ScreenFive(
+//                                navController = navController,
+//                                name = backStackEntry.arguments?.getString("name")
+//                            )
+//                        }
+//                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        MyAdvanceVisibilityAnimation()
                     }
                 }
             }
