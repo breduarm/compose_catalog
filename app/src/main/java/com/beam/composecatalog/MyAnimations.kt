@@ -1,6 +1,8 @@
 package com.beam.composecatalog
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -14,7 +16,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SensorDoor
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +32,51 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.beam.composecatalog.ui.theme.Compose_catalogTheme
+import kotlin.random.Random.Default.nextInt
+
+enum class ComponentType {
+    IMAGE, TEXT, BOX, UNKNOWN;
+
+    companion object {
+        fun getRandom(): ComponentType {
+            val index = nextInt(from = 0, until = 3)
+            return entries[index]
+        }
+    }
+}
+
+@Composable
+fun MyCrossfadeAnimation() {
+    var componentType by rememberSaveable { mutableStateOf(ComponentType.TEXT) }
+    Column(modifier = Modifier.fillMaxSize()) {
+        Button(onClick = { componentType = ComponentType.getRandom() }) {
+            Text(text = "Switch component")
+        }
+        Crossfade(
+            targetState = componentType,
+            label = "This is an example of Crossfade Animation",
+            animationSpec = tween(durationMillis = 1000)
+        ) { type ->
+            when (type) {
+                ComponentType.IMAGE -> Icon(
+                    imageVector = Icons.Default.SensorDoor,
+                    contentDescription = "Icon"
+                )
+
+                ComponentType.TEXT -> Text(text = "This is a text")
+                ComponentType.BOX -> Box(
+                    modifier = Modifier
+                        .size(150.dp)
+                        .background(Color.Blue)
+                )
+
+                ComponentType.UNKNOWN -> {
+                    Log.e("MyCrossFadeAnimation", "There is no component to show")
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun MyAdvanceVisibilityAnimation() {
@@ -164,7 +214,7 @@ fun AnimationsDefaultPreview() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            MyAdvanceVisibilityAnimation()
+            MyCrossfadeAnimation()
         }
     }
 }

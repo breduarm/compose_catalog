@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                     ) {
-                        MyAdvanceVisibilityAnimation()
+                        MyCrossfadeAnimation()
                     }
                 }
             }
